@@ -1,0 +1,32 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: ms-test
+  # Keycloak Config
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8181/realms/spendo-realm-dev
+          jwk-set-uri: http://localhost:8181/realms/spendo-realm-dev/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter:
+      resource-id: spendo-app-client-rest
+      principle-attribute: preferred_username
+
+logging:
+  level:
+    org:
+      keycloak: DEBUG
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

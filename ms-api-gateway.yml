@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+spring:
+  application:
+    name: ms-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: ms-test
+          uri: 'lb://ms-test'
+          predicates:
+            - Path=/api/test/**
+          filters:
+            - name: AuthenticationFilter
+        - id: ms-keycloak-adapter
+          uri: 'lb://ms-keycloak-adapter'
+          predicates:
+            - Path=/keycloak-adapter/**
+
+eureka:
+  client:
+    register-with-eureka: false
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

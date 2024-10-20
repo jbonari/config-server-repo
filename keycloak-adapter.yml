@@ -1,0 +1,31 @@
+server:
+  port: 0
+
+spring:
+  application:
+    #name: keycloack
+    name: ms-keycloak-adapter
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+keycloak:
+  #base-uri: ${KEYCLOACK_SERVER:http://localhost:8181/auth/realms/}
+  base-uri: ${KEYCLOACK_SERVER:http://localhost:8181/realms/}
+  authorization-uri: ${keycloak.base-uri}spendo-realm-dev/protocol/openid-connect/auth
+  user-info-uri: ${keycloak.base-uri}spendo-realm-dev/protocol/openid-connect/userinfo
+  token-uri: ${keycloak.base-uri}spendo-realm-dev/protocol/openid-connect/token
+  logout: ${keycloak.base-uri}spendo-realm-dev/protocol/openid-connect/logout
+  jwk-set-uri: ${keycloak.base-uri}spendo-realm-dev/protocol/openid-connect/certs
+  certs-id: ${KEYCLOACK_REAL_ID:GygiX_oEbspq16ggVD3buY7_7nxfc2Z9RmH86f-pBGU}
+  client-id: spendo-app-client-rest
+  client-secret: g5QdaqZBXyrOJbjU5K4nc62OGPMHQl5I
+  scope: profile
+  authorization-grant-type: password
+  authorization-grant-type-refresh: refresh_token
+
+logging:
+  level:
+    root: INFO
